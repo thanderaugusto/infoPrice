@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const config = require('./config');
+const firebase = require('firebase-admin');
 
 const app = express();
 const router = express.Router();
@@ -43,4 +44,19 @@ app.use('/clientes', clienteRoute);
 app.use('/orders', ordersRoute);
 
 
+// Initialize Firebase
+var configFirebase = {
+    apiKey: "AIzaSyA1uvuPKEx9_OY4Jgq7BLoGVDF1lnfDPJo",
+    authDomain: "infoprice-e1fd4.firebaseapp.com",
+    databaseURL: "https://infoprice-e1fd4.firebaseio.com",
+    projectId: "infoprice-e1fd4",
+    storageBucket: "infoprice-e1fd4.appspot.com",
+    messagingSenderId: "36366613211"
+  };
+  firebase.initializeApp(configFirebase);
+
+
+
 module.exports = app;
+
+

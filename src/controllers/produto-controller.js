@@ -13,7 +13,20 @@ exports.get = async(req, res, next) => {
     }
 }
 
+exports.getNome = async(req, res, next) => {
+
+    try {
+        var data = await repositorio.buscarNome(req.params.titulo);
+        res.status(200).send(data); 
+    } catch (e) {
+        res.status(500).send({
+            message: 'Falha ao processar requisição!'
+        });
+    }
+}
+
 exports.getBySlug = async(req, res, next) => {
+    
     try {
         var data = await repositorio.buscarSlug(req.params.slug);
         res.status(200).send(data); 

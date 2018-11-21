@@ -5,7 +5,14 @@ const Produto = mongoose.model('Produto');
 exports.buscar = async() => {
     const res = await Produto.find({
         ativo: true
-    }, 'titulo preco slug tags');
+    }, 'titulo preco slug tags descricao');
+    return res;
+}
+
+exports.buscarNome = async(titulo) => {
+    const res = await Produto.find({
+        titulo: new RegExp(titulo, 'i')
+    },' titulo preco descricao');      
     return res;
 }
 
