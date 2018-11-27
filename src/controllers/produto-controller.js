@@ -2,6 +2,7 @@
 
 const repositorio = require('../repositories/produto-repositorio');
 
+
 exports.get = async(req, res, next) => {
     try {
         var data = await repositorio.buscar();
@@ -26,7 +27,6 @@ exports.getNome = async(req, res, next) => {
 }
 
 exports.getBySlug = async(req, res, next) => {
-    
     try {
         var data = await repositorio.buscarSlug(req.params.slug);
         res.status(200).send(data); 
@@ -37,7 +37,7 @@ exports.getBySlug = async(req, res, next) => {
     }
 }
 
-exports.getById = async(res, req, next) => {
+exports.getProdutoId = async( req, res, next ) => { 
     try {
         var data = await repositorio.buscarId(req.params.id);
         res.status(200).send(data);
@@ -90,3 +90,4 @@ exports.delete = async(req, res, next)=> {
         });
     }
 };
+

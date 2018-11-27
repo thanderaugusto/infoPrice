@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/', (req, res, next)=> {
     res.status(200).send({
         title: "Node Api InfoPrice",
-        version: "2.3.0"
+        version: "2.4.0"
     });
 });
 
