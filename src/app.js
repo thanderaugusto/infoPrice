@@ -4,22 +4,21 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const config = require('./config');
-const load = require('express-load');
 
 const app = express();
-const router = express.Router();
+
 
 //Conecta com o banco
 mongoose.connect(config.connectionString);
 
 // //Carreganento dos Modelos
-// const Produto = require("./models/produto");
-// const Customer = require("./models/cliente");
+const Produto = require("./models/produto");
+const Customer = require("./models/cliente");
 
 // //Carregamento das Rotas
-// const indexRoute = require('./routes/index-route');
-// const produtoRoute = require('./routes/produto-route');
-// const clienteRoute = require('./routes/cliente-route');
+const indexRoute = require('./routes/index-route');
+const produtoRoute = require('./routes/produto-route');
+const clienteRoute = require('./routes/cliente-route');
 
 app.use(bodyParser.json({
     limit: '5mb'
@@ -36,14 +35,9 @@ app.use(function (req, res, next) {
 });
 
 
-// app.use('/', indexRoute);
-// app.use('/produtos', produtoRoute);
-// app.use('/clientes', clienteRoute);
-
-load('models')
-    .then('controllers')
-    .then('routes')
-.into(app);
+app.use('/', indexRoute);
+app.use('/produtos', produtoRoute);
+app.use('/clientes', clienteRoute);
 
 
 
