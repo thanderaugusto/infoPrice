@@ -23,16 +23,16 @@ const schema = new Schema({
     preco: {
         type: Number,
         required: true
-    },
-    ativo: {
-        type: Boolean,
-        required: true,
-        default: true
-    },
-    tags: [{
-        type: String,
-        required: true
-    }]
+    }
+    // ativo: {
+    //     type: Boolean,
+    //     required: true,
+    //     default: true
+    // },
+    // tags: [{
+    //     type: String,
+    //     required: true
+    // }]
     
 });
 

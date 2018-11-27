@@ -4,7 +4,6 @@ const Produto = mongoose.model('Produto');
 
 exports.buscar = async() => {
     const res = await Produto.find({
-        ativo: true
     }, 'titulo preco slug tags descricao');
     return res;
 }
@@ -19,9 +18,8 @@ exports.buscarNome = async(titulo) => {
 exports.buscarSlug = async(slug) => {
     const res = await Produto
         .findOne({
-            slug: slug,
-            ativo: true,
-        }, 'titulo descricao preco slug tags');
+            slug: slug
+        }, 'titulo descricao preco slug');
     return res;
 }
 
@@ -42,8 +40,7 @@ exports.atualizar = async(id, data) => {
                 titulo: data.titulo,
                 descricao: data.descricao,
                 slug: data.slug,
-                preco: data.preco,
-                tags: data.tags
+                preco: data.preco
             }
         })
 }

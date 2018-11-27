@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const config = require('./config');
-const firebase = require('firebase-admin');
+const load = require('express-load');
 
 const app = express();
 const router = express.Router();
@@ -12,16 +12,14 @@ const router = express.Router();
 //Conecta com o banco
 mongoose.connect(config.connectionString);
 
-//Carreganento dos Modelos
-const Produto = require("./models/produto");
-const Customer = require("./models/cliente");
-const Order = require('./models/order');
+// //Carreganento dos Modelos
+// const Produto = require("./models/produto");
+// const Customer = require("./models/cliente");
 
-//Carregamento das Rotas
-const indexRoute = require('./routes/index-route');
-const produtoRoute = require('./routes/produto-route');
-const clienteRoute = require('./routes/cliente-route');
-const ordersRoute = require('./routes/order-route');
+// //Carregamento das Rotas
+// const indexRoute = require('./routes/index-route');
+// const produtoRoute = require('./routes/produto-route');
+// const clienteRoute = require('./routes/cliente-route');
 
 app.use(bodyParser.json({
     limit: '5mb'
@@ -38,22 +36,14 @@ app.use(function (req, res, next) {
 });
 
 
-app.use('/', indexRoute);
-app.use('/produtos', produtoRoute);
-app.use('/clientes', clienteRoute);
-app.use('/orders', ordersRoute);
+// app.use('/', indexRoute);
+// app.use('/produtos', produtoRoute);
+// app.use('/clientes', clienteRoute);
 
-
-// Initialize Firebase
-var configFirebase = {
-    apiKey: "AIzaSyA1uvuPKEx9_OY4Jgq7BLoGVDF1lnfDPJo",
-    authDomain: "infoprice-e1fd4.firebaseapp.com",
-    databaseURL: "https://infoprice-e1fd4.firebaseio.com",
-    projectId: "infoprice-e1fd4",
-    storageBucket: "infoprice-e1fd4.appspot.com",
-    messagingSenderId: "36366613211"
-  };
-  firebase.initializeApp(configFirebase);
+load('models')
+    .then('controllers')
+    .then('routes')
+.into(app);
 
 
 

@@ -46,7 +46,6 @@ exports.getById = async(res, req, next) => {
             message: 'Falha ao processar requisição!'
         });
     }
-    
 }
 
 exports.post = async(req, res, next)=> {
