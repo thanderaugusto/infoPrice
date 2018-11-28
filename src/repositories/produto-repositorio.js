@@ -11,7 +11,7 @@ exports.buscar = async() => {
 exports.buscarNome = async(titulo) => {
     const res = await Produto.find({
         titulo: new RegExp(titulo, 'i')
-    },' titulo preco descricao');      
+    },' titulo preco descricao id');      
     return res;
 }
 
