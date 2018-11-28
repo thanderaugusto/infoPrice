@@ -35,13 +35,13 @@ exports.isAdmin = function (req, res, next) {
 
     if (!token) {
         res.status(401).json({
-            message: 'Token Inválido'
+            message: 'Somente administradores podem cadastrar produtos - TI'
         });
     } else {
         jwt.verify(token, global.SALT_KEY, function (error, decoded) {
             if (error) {
                 res.status(401).json({
-                    message: 'Token Inválido'
+                    message: 'Somente administradores podem cadastrar produtos - TI'
                 });
             } else {
                 if (decoded.roles.includes('admin')) {
