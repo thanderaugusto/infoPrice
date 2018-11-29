@@ -1,6 +1,6 @@
 'use strict';
 
-const repositorio = require('../repositories/cliente-reprositorio');
+const repositorio = require('../repositories/usuario-reprositorio');
 const md5 = require('md5');
 const emailService = require('../services/email-service');
 const authService = require('../services/auth-service');
@@ -21,7 +21,7 @@ exports.post = async(req, res, next)=> {
             global.EMAIL_TMPL.replace('{0}', req.body.nome));
 
         res.status(201).send({
-            message: 'Cliente cadastrado com sucesso!'
+            message: 'Usuário cadastrado com sucesso!'
         });
     } catch (e){
         res.status(500).send({
@@ -33,12 +33,12 @@ exports.post = async(req, res, next)=> {
 
 exports.autenticacao = async(req, res, next)=> {
     try{
-        const cliente = await repositorio.autenticacao({
+        const usuario = await repositorio.autenticacao({
             email: req.body.email,
             password: md5(req.body.password + global.SALT_KEY)
         });
 
-        if(!cliente){
+        if(!usuario){
             res.status(404).send({
                 message: 'Usúario ou senha inválidos'
             });
@@ -46,17 +46,17 @@ exports.autenticacao = async(req, res, next)=> {
         }
 
         const token = await authService.generateToken({
-            id: cliente.id,
-            email: cliente.email,
-            nome: cliente.nome,
-            roles: cliente.roles
+            id: usuario.id,
+            email: usuario.email,
+            nome: usuario.nome,
+            roles: usuario.roles
         });
 
         res.status(201).send({
             token: token,
             data : {
-                email: cliente.email,
-                nome: cliente.nome
+                email: usuario.email,
+                nome: usuario.nome
             }
         });
     } catch (e){
@@ -75,27 +75,27 @@ exports.refreshToken = async(req, res, next)=> {
         //decodifica token
         const data = await authService.decodeToken(token);
 
-        const cliente = await repositorio.buscarId(data.id);
+        const usuario = await repositorio.buscarId(data.id);
 
-        if(!cliente){
+        if(!usuario){
             res.status(404).send({
-                message: 'Cliente não encontrado'
+                message: 'Usuário não encontrado'
             });
             return;
         }
 
         const tokenData = await authService.generateToken({
-            id: cliente.id,
-            email: cliente.email,
-            nome: cliente.nome,
-            roles: cliente.roles
+            id: usuario.id,
+            email: usuario.email,
+            nome: usuario.nome,
+            roles: usuario.roles
         });
 
         res.status(201).send({
             token: tokenData,
             data : {
-                email: cliente.email,
-                nome: cliente.nome
+                email: usuario.email,
+                nome: usuario.nome
             }
         });
     } catch (e){

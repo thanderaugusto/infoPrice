@@ -13,12 +13,12 @@ mongoose.connect(config.connectionString);
 
 // //Carreganento dos Modelos
 const Produto = require("./models/produto");
-const Customer = require("./models/cliente");
+const Usuario = require("./models/usuario");
 
 // //Carregamento das Rotas
 const indexRoute = require('./routes/index-route');
 const produtoRoute = require('./routes/produto-route');
-const clienteRoute = require('./routes/cliente-route');
+const usuarioRoute = require('./routes/usuario-route');
 
 app.use(bodyParser.json({
     limit: '5mb'
@@ -37,7 +37,7 @@ app.use(function (req, res, next) {
 
 app.use('/', indexRoute);
 app.use('/produtos', produtoRoute);
-app.use('/clientes', clienteRoute);
+app.use('/usuarios', usuarioRoute);
 
 
 
